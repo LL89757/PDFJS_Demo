@@ -14,6 +14,7 @@
             ctx,
             $currentPageEle = $(".ppt-pager .current-page"),
             $totalPageEle = $(".ppt-pager .total-page"),
+            $readPPT=$(".read-ppt"),
             resizeTimeout,
             isFirstRender=true;
         var $loadingEle=$(".loading");
@@ -27,13 +28,13 @@
             }
             pageRendering = true;
             pdfDoc.getPage(num).then(function (page) {
-                var desireWidth = $(".read-ppt").width() - 5,
+                var desireWidth = $readPPT.width() - 5,
                     viewport = page.getViewport(scale),
                     desireScale = desireWidth / viewport.width,
                     scaleViewPort = page.getViewport(desireScale);
                 canvas.height = scaleViewPort.height;
                 canvas.width = scaleViewPort.width;
-                $(".read-ppt").css("padding-bottom",canvas.height/canvas.width*$(".read-ppt").width());
+                $readPPT.css("padding-bottom",canvas.height/canvas.width*$readPPT.width());
                 var renderContext = {
                     canvasContext: ctx,
                     viewport: scaleViewPort
